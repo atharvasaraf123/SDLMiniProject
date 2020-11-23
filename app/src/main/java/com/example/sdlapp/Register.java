@@ -19,6 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Register extends AppCompatActivity {
 
@@ -26,6 +31,8 @@ public class Register extends AppCompatActivity {
     EditText mFullName,mEmail,mPassword;
     FirebaseAuth fAuth;
     Button mRegisterBtn;
+    FirebaseFirestore fStore;
+    String userID;
     public static final String TAG = "TAG";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +44,7 @@ public class Register extends AppCompatActivity {
         mPassword   = findViewById(R.id.password_et);
         mRegisterBtn= findViewById(R.id.registerButton);
         fAuth = FirebaseAuth.getInstance();
-
+        fStore = FirebaseFirestore.getInstance();
 
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +93,22 @@ public class Register extends AppCompatActivity {
                             });
 
                             Toast.makeText(Register.this, "User Created.", Toast.LENGTH_SHORT).show();
+                            userID = fAuth.getCurrentUser().getUid();
+                            DocumentReference documentReference = fStore.collection("users").document(userID);
+                            Map<String,Object> user = new HashMap<>();
+                            user.put("fName",fullName);
+                            user.put("email",email);
+                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, "onFailure: " + e.toString());
+                                }
+                            });
                             startActivity(new Intent(getApplicationContext(),Dashboard.class));
 
                         }else {
