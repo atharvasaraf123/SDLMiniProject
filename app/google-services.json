@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "494073859128",
+    "firebase_url": "https://sdlapp-566d2.firebaseio.com",
+    "project_id": "sdlapp-566d2",
+    "storage_bucket": "sdlapp-566d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494073859128:android:7b268edf3aab14fb996acd",
+        "android_client_info": {
+          "package_name": "com.example.sdlapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "494073859128-3h8r0dmh402710p15v6j635q8bf3he2j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaRLAcc_w9EHHqWdKUNznkw2faR1JrFrE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "494073859128-3h8r0dmh402710p15v6j635q8bf3he2j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
