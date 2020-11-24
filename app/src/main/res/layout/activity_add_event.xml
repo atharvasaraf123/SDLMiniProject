@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEvent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEvent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        app:title="Add Event"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimaryDark"
+        android:elevation="4dp"
+        />
+
+    <EditText
+        android:layout_below="@+id/my_toolbar"
+        android:id="@+id/eventTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Event Title"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="8dp"
+        android:paddingBottom="15dp"/>
+
+    <EditText
+        android:layout_below="@+id/eventTitle"
+        android:id="@+id/eventDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Event Description"
+        android:layout_margin="8dp"
+        android:lines="2"
+        android:paddingLeft="8dp"
+        android:paddingBottom="15dp"/>
+
+    <EditText
+        android:layout_below="@+id/eventDesc"
+        android:id="@+id/eventDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Event Date"
+        android:clickable="true"
+        android:focusable="false"
+        android:layout_margin="8dp"
+        android:paddingLeft="8dp"
+        android:paddingBottom="15dp"
+        android:inputType="none"/>
+
+    <EditText
+        android:layout_below="@+id/eventDate"
+        android:id="@+id/eventTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Event Time"
+        android:clickable="true"
+        android:inputType="none"
+        android:focusable="false"
+        android:layout_margin="8dp"
+        android:paddingLeft="8dp"
+        android:paddingBottom="15dp" />
+
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/depText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eventTime"
+        android:text="Department"
+        android:textSize="18sp"
+        android:layout_margin="8dp"/>
+
+    <CheckBox
+        android:layout_below="@+id/depText"
+        android:paddingLeft="8dp"
+        android:id="@+id/comp"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Computer Engineering"
+        android:onClick="depCheckBoxClicked"/>
+
+    <CheckBox
+        android:paddingLeft="8dp"
+        android:layout_below="@+id/comp"
+        android:id="@+id/it"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IT Engineering"
+        android:onClick="depCheckBoxClicked"/>
+
+    <CheckBox
+        android:paddingLeft="8dp"
+        android:layout_margin="8dp"
+        android:id="@+id/entc"
+        android:layout_below="@+id/it"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EnTC Engineering"
+        android:onClick="depCheckBoxClicked"/>
+
+
+    <EditText
+        android:layout_below="@+id/entc"
+        android:id="@+id/eventVenue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Event Venue"
+        android:layout_margin="8dp"
+        android:lines="2"
+        android:paddingLeft="8dp"
+        android:paddingBottom="15dp"/>
+
+    <com.kusu.loadingbutton.LoadingButton
+        android:id="@+id/loadingButton"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Add"
+        android:textColor="@color/white"
+        app:lb_buttonColor="@color/black"
+        app:lb_isShadowEnable="true"
+        app:lb_isCircular="true"
+        android:layout_below="@+id/eventVenue"
+        android:layout_centerHorizontal="true"
+        app:lb_shadowHeight="5dp" />
+
+
+</RelativeLayout>
+</ScrollView>
