@@ -124,7 +124,7 @@ public class AddEvent extends AppCompatActivity {
                     }
                 });
                 loadingButton.hideLoading();
-                startActivity(new Intent(getApplicationContext(),Dashboard.class));
+                startActivity(new Intent(getApplicationContext(),MainActivity2.class));
             }
         });
         timeEditText.setOnClickListener(new View.OnClickListener() {

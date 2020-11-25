@@ -54,7 +54,7 @@ public class Login extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),Dashboard.class));
+            startActivity(new Intent(getApplicationContext(),MainActivity2.class));
             finish();
         }
 
@@ -97,7 +97,7 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(Login.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),Dashboard.class));
+                            startActivity(new Intent(getApplicationContext(),MainActivity2.class));
                         }else {
                             Toast.makeText(Login.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
@@ -166,7 +166,7 @@ public class Login extends AppCompatActivity {
                                     Log.d(TAG, "onFailure: " + e.toString());
                                 }
                             });
-                            Intent intent = new Intent(getApplicationContext(),Dashboard.class);
+                            Intent intent = new Intent(getApplicationContext(),MainActivity2.class);
                             startActivity(intent);
 
 
