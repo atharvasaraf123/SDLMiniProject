@@ -1,19 +1,31 @@
 package com.example.sdlapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.kusu.loadingbutton.LoadingButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class AddEvent extends AppCompatActivity {
@@ -21,14 +33,26 @@ public class AddEvent extends AppCompatActivity {
     final Calendar myCalendar = Calendar.getInstance();
     EditText dateEditText;
     EditText timeEditText;
+    EditText nameEditText;
+    EditText descEditText;
+    EditText venueEditText;
     LoadingButton loadingButton;
+    FirebaseAuth fAuth;
+    FirebaseUser user;
+    FirebaseFirestore fStore;
+    boolean cs,entc,it=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
-
-        dateEditText = (EditText) findViewById(R.id.eventDate);
+        fAuth=FirebaseAuth.getInstance();
+       user=fAuth.getCurrentUser();
+        fStore=FirebaseFirestore.getInstance();
+        nameEditText=findViewById(R.id.eventTitle);
+        descEditText=findViewById(R.id.eventDesc);
+        venueEditText=findViewById(R.id.eventVenue);
+        dateEditText =  findViewById(R.id.eventDate);
         timeEditText=findViewById(R.id.eventTime);
         loadingButton=findViewById(R.id.loadingButton);
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -50,6 +74,57 @@ public class AddEvent extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 loadingButton.showLoading();
+                String name=nameEditText.getText().toString().trim();
+                String desc=descEditText.getText().toString().trim();
+                String date=dateEditText.getText().toString().trim();
+                String time=timeEditText.getText().toString().trim();
+                String venue=venueEditText.getText().toString().trim();
+
+                if(TextUtils.isEmpty(name)){
+                    nameEditText.setError("Name is required");
+                    loadingButton.hideLoading();
+                    return;
+                }
+                if(TextUtils.isEmpty(desc)){
+                    descEditText.setError("Description is required");
+                    loadingButton.hideLoading();
+                    return;
+                }
+                if(TextUtils.isEmpty(date)){
+                    dateEditText.setError("Date is required");
+                    loadingButton.hideLoading();
+                    return;
+                }
+                if(TextUtils.isEmpty(time)){
+                    timeEditText.setError("Time is required");
+                    loadingButton.hideLoading();
+                    return;
+                }
+                if(TextUtils.isEmpty(venue)){
+                    venueEditText.setError("Venue is required");
+                    loadingButton.hideLoading();
+                    return;
+                }
+
+                HashMap<String,Boolean>mapp=new HashMap<>();
+                mapp.put("cs",cs);
+                mapp.put("it",it);
+                mapp.put("entc",entc);
+                Event event=new Event(nameEditText.getText().toString().trim(),descEditText.getText().toString().trim(),dateEditText.getText().toString().trim(),timeEditText.getText().toString().trim(),venueEditText.getText().toString().trim(),mapp,user.getUid());
+                fStore.collection("events").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText(getApplicationContext(),"Event Added",Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        loadingButton.setError("Please try again");
+                        Toast.makeText(getApplicationContext(),"Try again later",Toast.LENGTH_LONG).show();
+                    }
+                });
+                loadingButton.hideLoading();
+                startActivity(new Intent(getApplicationContext(),Dashboard.class));
             }
         });
         timeEditText.setOnClickListener(new View.OnClickListener() {
@@ -92,5 +167,21 @@ public class AddEvent extends AppCompatActivity {
     }
 
     public void depCheckBoxClicked(View view) {
+        boolean checked = ((CheckBox) view).isChecked();
+        switch (view.getId()){
+            case R.id.comp:
+                if(checked)cs=true;
+                else cs=false;
+                break;
+            case R.id.it:
+                if(checked)it=true;
+                else it=false;
+                break;
+            case R.id.entc:
+                if(checked)entc=true;
+                else entc=false;
+                break;
+        }
+
     }
 }
