@@ -138,6 +138,7 @@ public class AddEvent extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(AddEvent.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+
                         timeEditText.setText( selectedHour + ":" + selectedMinute);
                     }
                 }, hour, minute, true);

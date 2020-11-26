@@ -1,8 +1,9 @@
 package com.example.sdlapp;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Event {
+public class Event implements Serializable {
 
     private String title;
     private String desc;
@@ -12,14 +13,14 @@ public class Event {
     String uid;
     private HashMap<String,Boolean>dept;
 
-    public Event(String name, String desc, String date, String time, String venue, HashMap<String, Boolean> dept, String userEmail) {
+    public Event(String name, String desc, String date, String time, String venue, HashMap<String, Boolean> dept, String uid) {
         this.title = name;
         this.desc = desc;
         this.date = date;
         this.time = time;
         this.venue = venue;
         this.dept = dept;
-        this.uid = userEmail;
+        this.uid = uid;
     }
 
 
