@@ -82,7 +82,22 @@
 
     </LinearLayout>
 
-
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <com.kusu.loadingbutton.LoadingButton
+        android:id="@+id/loadingButton"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/white"
+        app:lb_buttonColor="@color/black"
+        app:lb_isShadowEnable="true"
+        app:lb_isCircular="true"
+        android:layout_centerHorizontal="true"
+        app:lb_shadowHeight="5dp" />
+    </RelativeLayout>
 
 </LinearLayout>

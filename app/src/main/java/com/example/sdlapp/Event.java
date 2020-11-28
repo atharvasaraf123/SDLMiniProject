@@ -10,8 +10,28 @@ public class Event implements Serializable {
     private String date;
     private String time;
     private String venue;
-    String uid;
+    private String uid;
     private HashMap<String,Boolean>dept;
+    private String eventID;
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
+
+    public Event(String name, String desc, String date, String time, String venue, HashMap<String, Boolean> dept, String uid,String eventID) {
+        this.title = name;
+        this.desc = desc;
+        this.date = date;
+        this.time = time;
+        this.venue = venue;
+        this.uid = uid;
+        this.dept = dept;
+        this.eventID = eventID;
+    }
 
     public Event(String name, String desc, String date, String time, String venue, HashMap<String, Boolean> dept, String uid) {
         this.title = name;

@@ -45,8 +45,8 @@ public class BrowseEventFragment extends Fragment {
     ArrayList<String> list;
     ArrayAdapter<String> adapter;
     FirebaseFirestore firestore;
-    List<String>list1 = new ArrayList<>();
-    List<Event>lis=new ArrayList<>();
+    List<String> list1 = new ArrayList<>();
+    List<Event> lis = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -61,10 +61,11 @@ public class BrowseEventFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("abcd", list1.get(i));
-                Intent intent=new Intent(getContext(), EventSuggestion.class);
-                for(int j=0;j<lis.size();j++){
-                    if(lis.get(j).getTitle()==list1.get(i)){
-                        intent.putExtra("values",lis.get(j));
+                Intent intent = new Intent(getContext(), EventSuggestion.class);
+                for (int j = 0; j < lis.size(); j++) {
+                    if (lis.get(j).getTitle().equals(list1.get(i))) {
+                        intent.putExtra("values", lis.get(j));
+                        break;
                     }
                 }
                 startActivity(intent);
@@ -78,9 +79,10 @@ public class BrowseEventFragment extends Fragment {
                     for (int i = 0; i < docSnam.size(); i++) {
                         Map<String, Object> mapp = docSnam.get(i).getData();
                         String tit = mapp.get("title").toString();
+                        Log.d("wtf", tit);
                         list.add(tit);
                         list1.add(tit);
-                        Event event=new Event(tit,mapp.get("desc").toString(),mapp.get("date").toString(),mapp.get("time").toString(),mapp.get("venue").toString(), (HashMap<String, Boolean>) mapp.get("dept"),mapp.get("uid").toString());
+                        Event event = new Event(tit, mapp.get("desc").toString(), mapp.get("date").toString(), mapp.get("time").toString(), mapp.get("venue").toString(), (HashMap<String, Boolean>) mapp.get("dept"), mapp.get("uid").toString(), mapp.get("eventID").toString());
                         lis.add(event);
                     }
                     adapter = new ArrayAdapter<String>(getContext(), R.layout.suggestion_layout, list);
@@ -116,7 +118,6 @@ public class BrowseEventFragment extends Fragment {
                 }
             }
         });
-
         return root;
     }
 }
