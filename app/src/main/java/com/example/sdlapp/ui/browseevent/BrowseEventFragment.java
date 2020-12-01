@@ -120,4 +120,5 @@ public class BrowseEventFragment extends Fragment {
         });
         return root;
     }
+
 }
