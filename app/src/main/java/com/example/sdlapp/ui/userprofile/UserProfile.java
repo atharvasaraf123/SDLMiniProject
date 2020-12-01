@@ -32,8 +32,27 @@ public class UserProfile extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         return root;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.logout){
+            FirebaseAuth.getInstance().signOut();
+            Intent intent=new Intent(getContext(), Login.class);
+            startActivity(intent);
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
+        return true;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.userprofilemenu,menu);
     }
 
     @Override

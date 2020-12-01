@@ -193,12 +193,14 @@ public class Register extends AppCompatActivity {
                                 Toast.makeText(Register.this, "User Created.", Toast.LENGTH_SHORT).show();
                                 userID = fAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = fStore.collection("admins").document(userID);
+                                DocumentReference documentReference1 = fStore.collection("clubs").document(userID);
                                 Map<String, Object> user = new HashMap<>();
                                 user.put("fName", fullName);
                                 user.put("email", email);
-                                user.put("clubName", clubName);
-                                user.put("clubDesc", clubDesc);
-                                user.put("clubWebsite", clubWebsite);
+                                Map<String, Object> club = new HashMap<>();
+                                club.put("clubName", clubName);
+                                club.put("clubDesc", clubDesc);
+                                club.put("clubWebsite", clubWebsite);
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -210,7 +212,14 @@ public class Register extends AppCompatActivity {
                                         Log.d(TAG, "onFailure: " + e.toString());
                                     }
                                 });
+                                documentReference1.set(club).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+                                    }
+                                });
                                 startActivity(new Intent(getApplicationContext(), MainActivity2.class));
+                                finish();
 
                             } else {
                                 Toast.makeText(Register.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
