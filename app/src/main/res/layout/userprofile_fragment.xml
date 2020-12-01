@@ -77,4 +77,12 @@
         android:layout_centerHorizontal="true"
         android:text="Done"/>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/done_button"
+        android:visibility="invisible"
+        android:id="@+id/progress_bar"/>
+
 </RelativeLayout>
