@@ -17,9 +17,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.kusu.loadingbutton.LoadingButton;
+
+import java.util.List;
+import java.util.Map;
 
 public class EventSuggestion extends AppCompatActivity {
 
@@ -85,6 +89,27 @@ public class EventSuggestion extends AppCompatActivity {
                            }
                        }
                    });
+                }else{
+                    Log.d("alls",obj.getEventID());
+                    DocumentReference documentReference=firestore.collection("events").document(obj.getEventID());
+                    documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
+                                Map<String,Object>mapp=task.getResult().getData();
+                                if(mapp.containsKey("visitors")){
+                                    List<String>list= (List<String>) mapp.get("visitors");
+                                    list.add(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                                    mapp.put("visitors",list);
+                                    documentReference.update(mapp);
+
+                                }else{
+
+                                    loadingButton.hideLoading();
+                                }
+                            }
+                        }
+                    });
                 }
             }
         });

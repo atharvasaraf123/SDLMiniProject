@@ -16,5 +16,11 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/browse"
             android:title="Browse Events" />
+
+        <item
+            android:id="@+id/nav_userprofile"
+            android:icon="@drawable/user"
+            android:title="User Profile"/>
     </group>
+
 </menu>

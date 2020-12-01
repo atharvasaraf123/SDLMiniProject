@@ -2,6 +2,7 @@ package com.example.sdlapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -51,7 +52,16 @@ public class AddEvent extends AppCompatActivity {
         fAuth=FirebaseAuth.getInstance();
        user=fAuth.getCurrentUser();
         fStore=FirebaseFirestore.getInstance();
-        nameEditText=findViewById(R.id.eventTitle);
+        androidx.appcompat.widget.Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        }); nameEditText=findViewById(R.id.eventTitle);
         descEditText=findViewById(R.id.eventDesc);
         venueEditText=findViewById(R.id.eventVenue);
         dateEditText =  findViewById(R.id.eventDate);

@@ -59,12 +59,6 @@ public class Login extends AppCompatActivity {
         }
 
         createRequest();
-        findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn();
-            }
-        });
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

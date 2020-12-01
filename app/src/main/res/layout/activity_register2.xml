@@ -45,6 +45,41 @@
             android:layout_margin="8dp"
             android:padding="8dp"/>
 
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Admin"
+            android:id="@+id/admin_switch"
+            android:layout_margin="8dp"
+            android:padding="8dp"/>
+
+        <EditText
+            android:id="@+id/club_et"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Club Name"
+            android:layout_margin="8dp"
+            android:padding="8dp"/>
+
+        <EditText
+            android:id="@+id/club_dec_et"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Club Description"
+            android:layout_margin="8dp"
+            android:padding="8dp"/>
+
+        <EditText
+            android:id="@+id/club_website_et"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Club Website"
+            android:layout_margin="8dp"
+            android:padding="8dp"/>
+
         <Button
             android:id="@+id/registerButton"
             android:layout_width="wrap_content"

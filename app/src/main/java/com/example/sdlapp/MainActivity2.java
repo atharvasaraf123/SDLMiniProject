@@ -3,15 +3,19 @@ package com.example.sdlapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Menu;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,10 +24,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity2 extends AppCompatActivity {
+import java.util.List;
 
+public class MainActivity2 extends AppCompatActivity{
     private AppBarConfiguration mAppBarConfiguration;
     FirebaseAuth fAuth;
+    FirebaseFirestore firestore;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,21 @@ public class MainActivity2 extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
         fAuth=FirebaseAuth.getInstance();
         FirebaseUser user=fAuth.getCurrentUser();
+        firestore=FirebaseFirestore.getInstance();
+        firestore.collection("admins").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    List<DocumentSnapshot> querySnapshot=task.getResult().getDocuments();
+                    for(int i=0;i<querySnapshot.size();i++){
+                        if(querySnapshot.get(i).getId().equals(user.getUid())){
+                            fab.setVisibility(View.VISIBLE);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,17 +63,18 @@ public class MainActivity2 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerView=navigationView.getHeaderView(0);
         TextView navName=headerView.findViewById(R.id.name);
         TextView navEmail=headerView.findViewById(R.id.email);
+        assert user != null;
         navName.setText(user.getDisplayName());
         navEmail.setText(user.getEmail());
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,R.id.nav_userprofile)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -60,11 +83,12 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
 }
