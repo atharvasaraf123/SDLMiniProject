@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_myevent" />
 
     <fragment
+        android:id="@+id/nav_club"
+        android:name="com.example.sdlapp.ui.browseclub.Browseclub"
+        android:label="Browse Clubs"
+        tools:layout="@layout/browseclub_fragment" />
+
+    <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.sdlapp.ui.browseevent.BrowseEventFragment"
         android:label="Browse Events"

@@ -8,10 +8,17 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/dashboard"
             android:title="Dashboard" />
+
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/events"
             android:title="My Events" />
+
+        <item
+            android:id="@+id/nav_club"
+            android:icon="@drawable/club"
+            android:title="Browse Clubs" />
+
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/browse"

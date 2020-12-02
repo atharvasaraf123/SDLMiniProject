@@ -48,8 +48,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         String titl=data.getDocuments().get(position).getString("title");
-        String des=data.getDocuments().get(position).getString("desc");
-        String dat=data.getDocuments().get(position).getString("date");
+            String des=data.getDocuments().get(position).getString("desc");
+            String dat=data.getDocuments().get(position).getString("date");
         holder.title.setText(titl);
         holder.desc.setText(des);
         holder.date.setText(dat);
@@ -58,7 +58,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             public void onClick(View view) {
                 Log.d("test",titl);
                 Intent intent=new Intent(view.getContext(), EventDetail.class);
-                Event event=new Event(titl,des,dat,data.getDocuments().get(position).getString("time"),data.getDocuments().get(position).getString("venue"), (HashMap<String, Boolean>) data.getDocuments().get(position).getData().get("dept"),data.getDocuments().get(position).getString("uid"));
+                Event event=new Event(titl,des,dat,data.getDocuments().get(position).getString("time"),data.getDocuments().get(position).getString("venue"), (HashMap<String, Boolean>) data.getDocuments().get(position).getData().get("dept"),data.getDocuments().get(position).getString("uid"),data.getDocuments().get(position).getString("eventID"));
                 intent.putExtra("mapp", (Serializable) event);
                 startActivity(view.getContext(),intent, Bundle.EMPTY);
             }
