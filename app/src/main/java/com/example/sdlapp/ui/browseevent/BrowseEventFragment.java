@@ -31,6 +31,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -119,15 +120,71 @@ public class BrowseEventFragment extends Fragment {
 //                }
 //            }
 //        });
-        firestore.collection("clubs").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for(int i=0;i<queryDocumentSnapshots.getDocuments().size();i++){
-                    boolean o=queryDocumentSnapshots.getDocuments().get(0).contains("events");
-                    Log.d("abc", String.valueOf(o));
-                }
-            }
-        });
+        List<String> ids = new ArrayList();
+
+        firestore.collection("clubs")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+                                String id=document.getId();
+                                firestore.collection("clubs").document(id).collection("events").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                Log.d("TAG", document.getId() + " => " + document.getData());
+                                                ids.add(document.getId());
+                                                Map<String, Object> mapp = document.getData();
+                                                String tit = mapp.get("title").toString();
+                                                Log.d("wtf", tit);
+                                                list.add(tit);
+                                                list1.add(tit);
+                                                Event event = new Event(tit, mapp.get("desc").toString(), mapp.get("date").toString(), mapp.get("time").toString(), mapp.get("venue").toString(), (HashMap<String, Boolean>) mapp.get("dept"), mapp.get("uid").toString(), mapp.get("eventID").toString());
+                                                lis.add(event);
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                            adapter = new ArrayAdapter<String>(getContext(), R.layout.suggestion_layout, list);
+                            listView.setAdapter(adapter);
+                            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                                @Override
+                                public boolean onQueryTextSubmit(String query) {
+
+                                    if (list.contains(query)) {
+                                        adapter.getFilter().filter(query);
+                                    }//                                Toast.makeText(getContext(), "No Match found",Toast.LENGTH_LONG).show();
+
+                                    return false;
+                                }
+
+                                @Override
+                                public boolean onQueryTextChange(String newText) {
+                                    list1 = new ArrayList<>();
+                                    for (String s : list) {
+                                        if (s.contains(newText)) {
+                                            list1.add(s);
+                                        }
+                                    }
+                                    if (list1.isEmpty()) {
+                                        Toast.makeText(getContext(), "No Match found", Toast.LENGTH_LONG).show();
+                                    }
+                                    adapter = new ArrayAdapter<String>(getContext(), R.layout.suggestion_layout, list1);
+                                    listView.setAdapter(adapter);
+                                    //    adapter.getFilter().filter(newText);
+                                    return false;
+                                }
+                            });
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
         return root;
     }
 
