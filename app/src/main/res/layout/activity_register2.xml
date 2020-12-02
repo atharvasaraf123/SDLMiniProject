@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,86 +7,193 @@
     android:layout_height="match_parent"
     tools:context=".Register">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/login"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="155dp" />
+
+
+
     <LinearLayout
-        android:layout_centerVertical="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:text="Sign Up" />
+            android:text="Sign Up"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
 
         <EditText
             android:id="@+id/name_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="@android:color/black"
             android:hint="Name"
             android:inputType="textEmailAddress"
-            android:layout_margin="8dp"
-            android:padding="8dp"/>
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+
+        <!-- <RelativeLayout-->
+
+
+        <!-- android:layout_width="match_parent"-->
+
+
+        <!-- android:layout_height="1dp"-->
+
+
+        <!-- android:layout_marginStart="30dp"-->
+
+
+        <!-- android:layout_marginTop="4dp"-->
+
+
+        <!-- android:layout_marginEnd="30dp"-->
+
+
+        <!-- android:background="#000000" />-->
+
 
         <EditText
             android:id="@+id/email_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="@android:color/black"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:layout_margin="8dp"
-            android:padding="8dp"/>
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+
+        <!-- <RelativeLayout-->
+
+
+        <!-- android:layout_width="match_parent"-->
+
+
+        <!-- android:layout_height="1dp"-->
+
+
+        <!-- android:layout_marginStart="30dp"-->
+
+
+        <!-- android:layout_marginTop="4dp"-->
+
+
+        <!-- android:layout_marginEnd="30dp"-->
+
+
+        <!-- android:background="#000000" />-->
+
+
         <EditText
             android:id="@+id/password_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="@android:color/black"
             android:hint="Password"
             android:inputType="textPassword"
-            android:layout_margin="8dp"
-            android:padding="8dp"/>
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
+
+        <!-- <RelativeLayout-->
+
+
+        <!-- android:layout_width="match_parent"-->
+
+
+        <!-- android:layout_height="1dp"-->
+
+
+        <!-- android:layout_marginStart="30dp"-->
+
+
+        <!-- android:layout_marginTop="4dp"-->
+
+
+        <!-- android:layout_marginEnd="30dp"-->
+
+
+        <!-- android:background="#000000" />-->
+
 
         <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/admin_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="@android:color/black"
+            android:padding="15dp"
             android:text="Admin"
-            android:id="@+id/admin_switch"
-            android:layout_margin="8dp"
-            android:padding="8dp"/>
+            android:textColor="@color/black"
+            android:textColorHint="@color/black" />
 
         <EditText
             android:id="@+id/club_et"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="@android:color/black"
             android:hint="Club Name"
-            android:layout_margin="8dp"
-            android:padding="8dp"/>
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/club_dec_et"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="@android:color/black"
             android:hint="Club Description"
-            android:layout_margin="8dp"
-            android:padding="8dp"/>
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/club_website_et"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="@android:color/black"
             android:hint="Club Website"
-            android:layout_margin="8dp"
-            android:padding="8dp"/>
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/registerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up"/>
-
+            android:background="@android:color/black"
+            android:padding="15dp"
+            android:text="Sign In"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
+
 </RelativeLayout>
