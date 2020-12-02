@@ -2,10 +2,12 @@ package com.example.sdlapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -31,6 +33,7 @@ public class MainActivity2 extends AppCompatActivity{
     FirebaseAuth fAuth;
     FirebaseFirestore firestore;
     DrawerLayout drawer;
+    boolean bool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +43,18 @@ public class MainActivity2 extends AppCompatActivity{
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fAuth=FirebaseAuth.getInstance();
+        NavigationView navigationView = findViewById(R.id.nav_view);
         FirebaseUser user=fAuth.getCurrentUser();
         firestore=FirebaseFirestore.getInstance();
-        firestore.collection("admins").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firestore.collection("users").document(fAuth.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    List<DocumentSnapshot> querySnapshot=task.getResult().getDocuments();
-                    for(int i=0;i<querySnapshot.size();i++){
-                        if(querySnapshot.get(i).getId().equals(user.getUid())){
-                            fab.setVisibility(View.VISIBLE);
-                            break;
-                        }
-                    }
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                bool=(boolean) documentSnapshot.getData().get("admin");
+                if(bool){
+                    fab.setVisibility(View.VISIBLE);
+                }else {
+                    Menu nav_Menu = navigationView.getMenu();
+                    nav_Menu.findItem(R.id.nav_gallery).setVisible(false);
                 }
             }
         });
@@ -64,8 +66,7 @@ public class MainActivity2 extends AppCompatActivity{
             }
         });
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        View headerView=navigationView.getHeaderView(0);
+      View headerView=navigationView.getHeaderView(0);
         TextView navName=headerView.findViewById(R.id.name);
         TextView navEmail=headerView.findViewById(R.id.email);
         assert user != null;

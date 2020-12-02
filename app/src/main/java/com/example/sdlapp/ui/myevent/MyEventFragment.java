@@ -35,7 +35,7 @@ public class MyEventFragment extends Fragment {
         final QuerySnapshot[] querySnapshot = new QuerySnapshot[1];
         Log.d("TAG", "a ");
 
-        galleryViewModel.getFstore().getValue().collection("events").whereEqualTo("uid",galleryViewModel.getUser().getValue().getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        galleryViewModel.getFstore().getValue().collection("clubs").document(galleryViewModel.getUser().getValue().getUid()).collection("events").whereEqualTo("uid",galleryViewModel.getUser().getValue().getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){

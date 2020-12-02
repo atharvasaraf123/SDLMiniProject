@@ -77,6 +77,10 @@ public class UserProfile extends Fragment {
         return new UserProfile();
     }
 
+
+
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -108,8 +112,8 @@ public class UserProfile extends Fragment {
                        storageReference1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                            @Override
                            public void onSuccess(Uri uri) {
-                               DocumentReference documentReference=firestore.collection("admins").document(firebaseAuth.getUid());
-                               firestore.collection("admins").document(firebaseAuth.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                               DocumentReference documentReference=firestore.collection("users").document(firebaseAuth.getUid());
+                               firestore.collection("users").document(firebaseAuth.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                    @Override
                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
                                        Map<String,Object> mapp=documentSnapshot.getData();
@@ -131,11 +135,12 @@ public class UserProfile extends Fragment {
 //               editText.setText((CharSequence) documentSnapshot.get("fname"));
 //           }
 //       });
-        firestore.collection("admins").document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        firestore.collection("users").document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String fName=(String) documentSnapshot.get("fName");
                 String profilePic=(String) documentSnapshot.get("profileUrl");
+                if(profilePic!=null)
                 new ImageLoadTask(profilePic, circleImageView).execute();
                 Log.d("abc",fName);
                 editText.setText((CharSequence) documentSnapshot.get("fName"));
@@ -154,23 +159,6 @@ public class UserProfile extends Fragment {
     }
 
 
-    public static Bitmap getBitmapFromURL(String src) {
-        try {
-            Log.e("src",src);
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            Log.e("Bitmap","returned");
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Exception",e.getMessage());
-            return null;
-        }
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

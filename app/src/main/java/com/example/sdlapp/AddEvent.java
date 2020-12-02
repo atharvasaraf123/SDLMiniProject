@@ -123,10 +123,30 @@ public class AddEvent extends AppCompatActivity {
                 mapp.put("it",it);
                 mapp.put("entc",entc);
                 Event event=new Event(nameEditText.getText().toString().trim(),descEditText.getText().toString().trim(),dateEditText.getText().toString().trim(),timeEditText.getText().toString().trim(),venueEditText.getText().toString().trim(),mapp,user.getUid());
-                fStore.collection("events").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                fStore.collection("clubs").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                       event.setEventID(documentReference.getId());
+//                        documentReference.set(event).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//                                if(task.isSuccessful()){
+//                                    Toast.makeText(getApplicationContext(),"Event Added",Toast.LENGTH_LONG).show();
+//                                }
+//                            }
+//                        });
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        loadingButton.setError("Please try again");
+//                        Toast.makeText(getApplicationContext(),"Try again later",Toast.LENGTH_LONG).show();
+//                    }
+//                });
+                fStore.collection("clubs").document(fAuth.getUid()).collection("events").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                       event.setEventID(documentReference.getId());
+                        event.setEventID(documentReference.getId());
                         documentReference.set(event).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

@@ -121,6 +121,7 @@ public class Register extends AppCompatActivity {
                                 Map<String, Object> user = new HashMap<>();
                                 user.put("fName", fullName);
                                 user.put("email", email);
+                                user.put("admin",false);
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -192,10 +193,11 @@ public class Register extends AppCompatActivity {
 
                                 Toast.makeText(Register.this, "User Created.", Toast.LENGTH_SHORT).show();
                                 userID = fAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = fStore.collection("admins").document(userID);
+                                DocumentReference documentReference = fStore.collection("users").document(userID);
                                 DocumentReference documentReference1 = fStore.collection("clubs").document(userID);
                                 Map<String, Object> user = new HashMap<>();
                                 user.put("fName", fullName);
+                                user.put("admin",true);
                                 user.put("email", email);
                                 Map<String, Object> club = new HashMap<>();
                                 club.put("clubName", clubName);
