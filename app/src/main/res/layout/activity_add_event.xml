@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".AddEvent">
 
 
@@ -14,14 +15,6 @@
         android:layout_height="match_parent"
         tools:context=".AddEvent">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/event"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="155dp" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -54,7 +47,7 @@
             android:layout_marginEnd="30dp"
             android:background="@drawable/custom_input"
             android:hint="Event Description"
-            android:lines="2"
+            android:lines="1"
             android:textColor="@color/black"
             android:padding="15dp"
             android:paddingLeft="8dp"
@@ -115,6 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/depText"
             android:layout_margin="8dp"
+            android:buttonTint="#07243A"
             android:onClick="depCheckBoxClicked"
             android:paddingLeft="8dp"
             android:text="Tech"
@@ -126,6 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/comp"
             android:layout_margin="8dp"
+            android:buttonTint="#07243A"
             android:onClick="depCheckBoxClicked"
             android:paddingLeft="8dp"
             android:text="Non-Tech"
@@ -185,7 +180,7 @@
             android:paddingRight="10dp"
             android:text="Add"
             android:textColor="@color/white"
-            app:lb_buttonColor="#3C3126"
+            app:lb_buttonColor="#07243A"
             app:lb_isCircular="true" />
 
 

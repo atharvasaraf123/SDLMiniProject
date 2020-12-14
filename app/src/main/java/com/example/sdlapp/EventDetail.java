@@ -30,6 +30,7 @@ public class EventDetail extends AppCompatActivity {
     TextView dateTextView;
     TextView timeTextView;
     TextView venueTextView;
+    TextView visitorTextView;
     String eventID;
     ProgressBar progressBar;
     @Override
@@ -56,10 +57,13 @@ public class EventDetail extends AppCompatActivity {
         dateTextView=findViewById(R.id.eventDate);
         timeTextView=findViewById(R.id.eventTime);
         venueTextView=findViewById(R.id.eventVenue);
+        visitorTextView=findViewById(R.id.eventVisitor);
         descTextView.setText(obj.getDesc());
         dateTextView.setText(obj.getDate());
         timeTextView.setText(obj.getTime());
         venueTextView.setText(obj.getVenue());
+        visitorTextView.setText(String.valueOf(obj.getVisitorCount()));
+        Log.d("abc", String.valueOf(obj.getVisitorCount()));
     }
 
     @Override

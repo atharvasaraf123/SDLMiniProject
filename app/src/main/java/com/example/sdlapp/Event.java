@@ -13,9 +13,9 @@ public class Event implements Serializable {
     private String uid;
     private HashMap<String,Boolean>dept;
     private String eventID;
-    int visitorCount;
+    long visitorCount;
 
-    public Event(String title, String desc, String date, String time, String venue, HashMap<String, Boolean> dept, String uid,String eventID,int visitorCount) {
+    public Event(String title, String desc, String date, String time, String venue, HashMap<String, Boolean> dept, String uid,String eventID,long visitorCount) {
         this.title = title;
         this.desc = desc;
         this.date = date;
@@ -27,11 +27,11 @@ public class Event implements Serializable {
         this.visitorCount = visitorCount;
     }
 
-    public int getVisitorCount() {
+    public long getVisitorCount() {
         return visitorCount;
     }
 
-    public void setVisitorCount(int visitorCount) {
+    public void setVisitorCount(long visitorCount) {
         this.visitorCount = visitorCount;
     }
 
