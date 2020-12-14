@@ -136,6 +136,7 @@ public class AddEvent extends AppCompatActivity {
 //                            }
 //                        });
 //                    }
+
 //                }).addOnFailureListener(new OnFailureListener() {
 //                    @Override
 //                    public void onFailure(@NonNull Exception e) {
@@ -218,10 +219,10 @@ public class AddEvent extends AppCompatActivity {
                 if(checked)it=true;
                 else it=false;
                 break;
-            case R.id.entc:
-                if(checked)entc=true;
-                else entc=false;
-                break;
+//            case R.id.entc:
+//                if(checked)entc=true;
+//                else entc=false;
+//                break;
         }
 
     }

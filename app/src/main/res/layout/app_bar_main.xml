@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/black"
             app:popupTheme="@style/Theme.SDLApp.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -25,6 +25,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
+        app:backgroundTint="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"

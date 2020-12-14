@@ -1,144 +1,194 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddEvent">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddEvent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        app:title="Add Event"
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/Theme.SDLApp.PopupOverlay" />
+        android:layout_height="match_parent"
+        tools:context=".AddEvent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/event"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="155dp" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/Theme.SDLApp.PopupOverlay"
+            app:title="Add Event" />
+
+        <EditText
+            android:id="@+id/eventTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_margin="8dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:textColor="@color/black"
+            android:background="@drawable/custom_input"
+            android:hint="Event Title"
+            android:padding="15dp"
+            android:textColorHint="#9A9393" />
+
+        <EditText
+            android:id="@+id/eventDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eventTitle"
+            android:layout_margin="8dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/custom_input"
+            android:hint="Event Description"
+            android:lines="2"
+            android:textColor="@color/black"
+            android:padding="15dp"
+            android:paddingLeft="8dp"
+            android:paddingBottom="15dp"
+            android:textColorHint="#9A9393" />
+
+        <EditText
+            android:id="@+id/eventDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eventDesc"
+            android:layout_margin="8dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/custom_input"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="Event Date"
+            android:inputType="none"
+            android:textColor="@color/black"
+            android:padding="15dp"
+            android:paddingLeft="8dp"
+            android:paddingBottom="15dp"
+            android:textColorHint="#9A9393" />
+
+        <EditText
+            android:id="@+id/eventTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eventDate"
+            android:layout_margin="8dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/custom_input"
+            android:clickable="true"
+            android:focusable="false"
+            android:textColor="@color/black"
+            android:hint="Event Time"
+            android:inputType="none"
+            android:padding="15dp"
+            android:paddingLeft="8dp"
+            android:paddingBottom="15dp"
+            android:textColorHint="#9A9393" />
+
+        <TextView
+            android:id="@+id/depText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eventTime"
+            android:layout_margin="8dp"
+            android:text="Department"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/comp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/depText"
+            android:layout_margin="8dp"
+            android:onClick="depCheckBoxClicked"
+            android:paddingLeft="8dp"
+            android:text="Tech"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/it"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/comp"
+            android:layout_margin="8dp"
+            android:onClick="depCheckBoxClicked"
+            android:paddingLeft="8dp"
+            android:text="Non-Tech"
+            android:textStyle="bold" />
+
+        <!-- <Spinner-->
 
 
-    <EditText
-        android:layout_below="@+id/toolbar"
-        android:id="@+id/eventTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Event Title"
-        android:layout_margin="8dp"
-        android:layout_marginBottom="20dp"
-        android:paddingLeft="8dp"
-        android:paddingBottom="15dp"/>
-
-    <EditText
-        android:layout_below="@+id/eventTitle"
-        android:id="@+id/eventDesc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Event Description"
-        android:layout_margin="8dp"
-        android:lines="2"
-        android:paddingLeft="8dp"
-        android:paddingBottom="15dp"/>
-
-    <EditText
-        android:layout_below="@+id/eventDesc"
-        android:id="@+id/eventDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Event Date"
-        android:clickable="true"
-        android:focusable="false"
-        android:layout_margin="8dp"
-        android:paddingLeft="8dp"
-        android:paddingBottom="15dp"
-        android:inputType="none"/>
-
-    <EditText
-        android:layout_below="@+id/eventDate"
-        android:id="@+id/eventTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Event Time"
-        android:clickable="true"
-        android:inputType="none"
-        android:focusable="false"
-        android:layout_margin="8dp"
-        android:paddingLeft="8dp"
-        android:paddingBottom="15dp" />
+        <!-- android:id="@+id/dropdown_menu"-->
 
 
-    <TextView
-        android:id="@+id/depText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/eventTime"
-        android:text="Department"
-        android:textSize="18sp"
-        android:layout_margin="8dp"/>
-
-    <CheckBox
-        android:layout_below="@+id/depText"
-        android:paddingLeft="8dp"
-        android:id="@+id/comp"
-        android:layout_margin="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Computer Engineering"
-        android:onClick="depCheckBoxClicked"/>
-
-    <CheckBox
-        android:paddingLeft="8dp"
-        android:layout_below="@+id/comp"
-        android:id="@+id/it"
-        android:layout_margin="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="IT Engineering"
-        android:onClick="depCheckBoxClicked"/>
-
-    <CheckBox
-        android:paddingLeft="8dp"
-        android:layout_margin="8dp"
-        android:id="@+id/entc"
-        android:layout_below="@+id/it"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="EnTC Engineering"
-        android:onClick="depCheckBoxClicked"/>
+        <!-- android:layout_width="match_parent"-->
 
 
-    <EditText
-        android:layout_below="@+id/entc"
-        android:id="@+id/eventVenue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Event Venue"
-        android:layout_margin="8dp"
-        android:lines="2"
-        android:paddingLeft="8dp"
-        android:paddingBottom="15dp"/>
-
-    <com.kusu.loadingbutton.LoadingButton
-        android:id="@+id/loadingButton"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="Add"
-        android:textColor="@color/white"
-        app:lb_buttonColor="@color/black"
-        app:lb_isShadowEnable="true"
-        app:lb_isCircular="true"
-        android:layout_below="@+id/eventVenue"
-        android:layout_centerHorizontal="true"
-        app:lb_shadowHeight="5dp" />
+        <!-- android:layout_height="match_parent"-->
 
 
-</RelativeLayout>
+        <!-- android:layout_below="@+id/it"-->
+
+
+        <!-- android:layout_alignParentEnd="true"-->
+
+
+        <!-- android:layout_marginStart="8dp"-->
+
+
+        <!-- android:layout_marginEnd="8dp"-->
+
+
+        <!-- android:background="@drawable/spinner_style" />-->
+
+
+        <EditText
+            android:id="@+id/eventVenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/it"
+            android:layout_margin="8dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/custom_input"
+            android:hint="Event Venue"
+            android:padding="15dp"
+            android:textColor="@color/black"
+            android:paddingLeft="8dp"
+            android:paddingBottom="15dp"
+            android:textColorHint="#9A9393" />
+
+        <com.kusu.loadingbutton.LoadingButton
+            android:id="@+id/loadingButton"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/eventVenue"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Add"
+            android:textColor="@color/white"
+            app:lb_buttonColor="#3C3126"
+            app:lb_isCircular="true" />
+
+
+    </RelativeLayout>
+
 </ScrollView>

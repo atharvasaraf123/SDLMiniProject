@@ -36,12 +36,14 @@ public class EventSuggestion extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_suggestion);
         Intent intent=getIntent();
         Event obj=(Event) intent.getSerializableExtra("values");
+        Log.d("abc",intent.getStringExtra("collectionId"));
         androidx.appcompat.widget.Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(obj.getTitle().toUpperCase());
@@ -66,8 +68,8 @@ public class EventSuggestion extends AppCompatActivity {
         timeTextView.setText(obj.getTime());
         venueTextView.setText(obj.getVenue());
         if(firebaseUser.getUid().equals(obj.getUid())){
-            loadingButton.setText("Delete Event");
-            loadingButton.setButtonColor(Color.RED);
+         loadingButton.setVisibility(View.INVISIBLE);
+
         }else{
             loadingButton.setText("I want to visit");
             loadingButton.setButtonColor(Color.BLACK);
@@ -91,22 +93,15 @@ public class EventSuggestion extends AppCompatActivity {
                    });
                 }else{
                     Log.d("alls",obj.getEventID());
-                    DocumentReference documentReference=firestore.collection("events").document(obj.getEventID());
-                    documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    DocumentReference documentReference=firestore.collection("clubs").document(intent.getStringExtra("collectionId"));
+                    documentReference.collection("events").document(obj.getEventID()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if(task.isSuccessful()){
-                                Map<String,Object>mapp=task.getResult().getData();
-                                if(mapp.containsKey("visitors")){
-                                    List<String>list= (List<String>) mapp.get("visitors");
-                                    list.add(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                                    mapp.put("visitors",list);
-                                    documentReference.update(mapp);
-
-                                }else{
-
-                                    loadingButton.hideLoading();
-                                }
+                                Long v= (Long) task.getResult().get("visitorCount");
+                                documentReference.collection("events").document(obj.getEventID()).update("visitorCount",v+1);
+                                loadingButton.setVisibility(View.INVISIBLE);
+                                Toast.makeText(getApplicationContext(),"Visitor added",Toast.LENGTH_LONG).show();
                             }
                         }
                     });

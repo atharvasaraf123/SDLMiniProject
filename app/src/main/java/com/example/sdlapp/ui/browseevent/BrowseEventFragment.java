@@ -57,6 +57,7 @@ public class BrowseEventFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_browse, container, false);
         searchView = root.findViewById(R.id.searchView);
         listView = root.findViewById(R.id.lv1);
+        List<String> ids = new ArrayList();
         list = new ArrayList<>();
         firestore = FirebaseFirestore.getInstance();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -66,6 +67,7 @@ public class BrowseEventFragment extends Fragment {
                 Intent intent = new Intent(getContext(), EventSuggestion.class);
                 for (int j = 0; j < lis.size(); j++) {
                     if (lis.get(j).getTitle().equals(list1.get(i))) {
+                        intent.putExtra("collectionId",ids.get(j));
                         intent.putExtra("values", lis.get(j));
                         break;
                     }
@@ -120,7 +122,6 @@ public class BrowseEventFragment extends Fragment {
 //                }
 //            }
 //        });
-        List<String> ids = new ArrayList();
 
         firestore.collection("clubs")
                 .get()
@@ -137,7 +138,7 @@ public class BrowseEventFragment extends Fragment {
                                         if (task.isSuccessful()) {
                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                 Log.d("TAG", document.getId() + " => " + document.getData());
-                                                ids.add(document.getId());
+                                                ids.add(id);
                                                 Map<String, Object> mapp = document.getData();
                                                 String tit = mapp.get("title").toString();
                                                 Log.d("wtf", tit);

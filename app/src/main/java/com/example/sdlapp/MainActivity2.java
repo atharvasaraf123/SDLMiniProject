@@ -2,6 +2,7 @@ package com.example.sdlapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -70,8 +71,19 @@ public class MainActivity2 extends AppCompatActivity{
         TextView navName=headerView.findViewById(R.id.name);
         TextView navEmail=headerView.findViewById(R.id.email);
         assert user != null;
-        navName.setText(user.getDisplayName());
-        navEmail.setText(user.getEmail());
+        FirebaseFirestore.getInstance().collection("users").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    String email= (String) task.getResult().get("email");
+                    String name=(String) task.getResult().get("fName");
+                    navName.setText(name.substring(0,1).toUpperCase().concat(name.substring(1)));
+                    navEmail.setText(email);
+                }
+            }
+        });
+        Log.d("abc",user.getDisplayName());
+        Log.d("abc",user.getUid());
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
