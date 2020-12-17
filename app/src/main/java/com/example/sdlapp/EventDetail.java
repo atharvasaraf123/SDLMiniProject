@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class EventDetail extends AppCompatActivity {
     TextView venueTextView;
     TextView visitorTextView;
     String eventID;
+    Button deleteButton;
     ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,34 +62,31 @@ public class EventDetail extends AppCompatActivity {
         visitorTextView=findViewById(R.id.eventVisitor);
         descTextView.setText(obj.getDesc());
         dateTextView.setText(obj.getDate());
+        deleteButton=findViewById(R.id.deleteButton);
         timeTextView.setText(obj.getTime());
         venueTextView.setText(obj.getVenue());
         visitorTextView.setText(String.valueOf(obj.getVisitorCount()));
         Log.d("abc", String.valueOf(obj.getVisitorCount()));
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
+                FirebaseFirestore.getInstance().collection("clubs").document(FirebaseAuth.getInstance().getUid()).collection("events").document(eventID).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getApplicationContext(),"Event deleted",Toast.LENGTH_LONG).show();
+                        Intent intent=new Intent(getApplicationContext(), DashboardFragment.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.deleteeventmenu,menu);
-        return true;
-    }
 
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-       if(item.getItemId()==R.id.delete){
-           progressBar.setVisibility(View.VISIBLE);
-           FirebaseFirestore.getInstance().collection("clubs").document(FirebaseAuth.getInstance().getUid()).collection("events").document(eventID).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-               @Override
-               public void onComplete(@NonNull Task<Void> task) {
-                   Toast.makeText(getApplicationContext(),"Event deleted",Toast.LENGTH_LONG).show();
-                   Intent intent=new Intent(getApplicationContext(), DashboardFragment.class);
-                   startActivity(intent);
-                   finish();
-               }
-           });
-       }
-       return true;
-    }
+
+
 }
