@@ -31,6 +31,7 @@ public class EventSuggestion extends AppCompatActivity {
     TextView dateTextView;
     TextView timeTextView;
     TextView venueTextView;
+    TextView eveName;
     LoadingButton loadingButton;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
@@ -60,9 +61,11 @@ public class EventSuggestion extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser=firebaseAuth.getCurrentUser();
         timeTextView=findViewById(R.id.eventTime);
+        eveName=findViewById(R.id.eveName);
         venueTextView=findViewById(R.id.eventVenue);
         loadingButton=findViewById(R.id.loadingButton);
         firestore=FirebaseFirestore.getInstance();
+        eveName.setText(obj.getTitle());
         descTextView.setText(obj.getDesc());
         dateTextView.setText(obj.getDate());
         timeTextView.setText(obj.getTime());
